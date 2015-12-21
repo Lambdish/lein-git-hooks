@@ -1,6 +1,9 @@
-(ns leiningen.git-hooks)
+(ns leiningen.git-hooks
+  (:require [git-hooks.run :refer [run-cmds!]]))
 
-(defn git-hooks
-  "I don't do a lot."
-  [project & args]
-  (println "Hi!"))
+(defn extract-cmds-from-projec [project hook-type]
+  (get-in project [:git-hooks (keyword hook-type)]))
+
+(defn git-hooks [project & [action hook-type]]
+  (case action
+    "run" (run-cmds! (extract-cmds-from-projec project hook-type))))
