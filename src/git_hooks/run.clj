@@ -3,8 +3,8 @@
             [leiningen.core.main :refer [info abort]]))
 
 (defn- parse-cmd-args [cmd]
-  (->> (clojure.string/split cmd #"[ ]+(?=([^\"]*\"[^\"]*\")*[^\"]*$)")
-       (map #(clojure.string/replace % "\"" ""))))
+  (map #(clojure.string/replace % "\"" "")
+       (clojure.string/split cmd #"[ ]+(?=([^\"]*\"[^\"]*\")*[^\"]*$)")))
 
 (defn- run-cmd! [cmd]
   (let [command-with-arguments (parse-cmd-args cmd)
